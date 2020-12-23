@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace RecordType
 {
@@ -24,7 +25,10 @@ namespace RecordType
             };
 
             Console.WriteLine($"Are p1 and p2 equal: {p1 == p2}");
-            Console.WriteLine($"Are p1 and p2 equal by reference: {ReferenceEquals(p1, p2)}");
+            Console.WriteLine($"Are p1 and p2 equal: {p1.Equals(p2)}");
+            Console.WriteLine($"Are p1 and p2 equal: {EqualityComparer<Person>.Default.Equals(p1, p2)}");
+            Console.WriteLine($"Are p1 and p2 equal: {Object.Equals(p1, p2)}");
+            Console.WriteLine($"Are p1 and p2 equal by reference: {Object.ReferenceEquals(p1, p2)}");
         }
     }
 
@@ -39,9 +43,11 @@ namespace RecordType
             this.Name = name;
             this.Age = age;
         }
+
         public string Name { get; init; }
         
-        public int Age { get; init;  }
+        public int Age { get; init;  } 
+
 
         public void Walk()
         {
