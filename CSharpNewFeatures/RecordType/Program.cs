@@ -7,7 +7,7 @@ namespace RecordType
         private static void Main(string[] args)
         {
             // var p1 = new Person(name: "John Doe", age: 23);
-            var p1 = new Person
+            var p1 = new Person()
             {
                 Name = "John Doe",
                 Age = 23
@@ -28,22 +28,22 @@ namespace RecordType
         }
     }
 
-    internal record Person
+    public record Person
     {
-        internal Person()
+        public Person()
         {
         }
         
-        internal Person(string name, int age)
+        public Person(string name, int age)
         {
             this.Name = name;
             this.Age = age;
         }
-        internal string Name { get; init; }
+        public string Name { get; init; }
         
-        internal int Age { get; init;  }
+        public int Age { get; init;  }
 
-        internal void Walk()
+        public void Walk()
         {
             Console.WriteLine($"{this.Name} started walking...");
         }
