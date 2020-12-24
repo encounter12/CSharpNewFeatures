@@ -33,14 +33,14 @@ namespace EqualityOrderComparisonMoney
 
             Console.WriteLine($"m3.Equals(m4): {m3.Equals(m4)}");
             Console.WriteLine($"m3 == m4: {m3 == m4}");
-            Console.WriteLine($"(object)null == (object)null: {(object)null == (object)null}");
-            
+            Console.WriteLine($"(object)null == (object)null: {(object) null == (object) null}");
+
             Money? m5 = null;
             Money? m6 = new Money(65M, CurrencyCode.Bgn);
 
             Console.WriteLine($"m5 == m6: {m5 == m6}");
             Console.WriteLine($"m5 != m6: {m5 != m6}");
-            
+
             if (m5 is Money otherMoney1)
             {
                 Console.WriteLine($"otherMoney: {otherMoney1}");
