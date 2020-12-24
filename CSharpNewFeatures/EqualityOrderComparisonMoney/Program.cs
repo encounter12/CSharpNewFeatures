@@ -8,7 +8,7 @@ namespace EqualityOrderComparisonMoney
     {
         private static void Main(string[] args)
         {
-            var m1 = new Money()
+            var m1 = new Money
             {
                 MoneyValue = 120M,
                 Currency = CurrencyCode.Usd
@@ -75,8 +75,8 @@ namespace EqualityOrderComparisonMoney
     {
         public Money(decimal moneyValue, CurrencyCode currency)
         {
-            this.MoneyValue = moneyValue;
-            this.Currency = currency;
+            MoneyValue = moneyValue;
+            Currency = currency;
         }
 
         public decimal MoneyValue { get; init; }
@@ -89,7 +89,7 @@ namespace EqualityOrderComparisonMoney
             stringBuilder.Append(nameof(Money));
             stringBuilder.Append(" { ");
 
-            this.PrintMembers(stringBuilder);
+            PrintMembers(stringBuilder);
 
             stringBuilder.Append(" }");
             return stringBuilder.ToString();
@@ -99,23 +99,23 @@ namespace EqualityOrderComparisonMoney
         {
             builder.Append(nameof(MoneyValue));
             builder.Append(" = ");
-            builder.Append(this.MoneyValue);
+            builder.Append(MoneyValue);
 
             builder.Append(", ");
 
             builder.Append(nameof(Currency));
             builder.Append(" = ");
-            builder.Append(this.Currency.ToString());
+            builder.Append(Currency.ToString());
         }
 
         public bool Equals(Money other)
-            => this.Currency == other.Currency && this.MoneyValue == other.MoneyValue;
+            => Currency == other.Currency && MoneyValue == other.MoneyValue;
 
         public override bool Equals(object other)
-            => other is Money otherMoney && this.Equals(otherMoney);
+            => other is Money otherMoney && Equals(otherMoney);
 
         public override int GetHashCode()
-            => HashCode.Combine(this.MoneyValue, this.Currency);
+            => HashCode.Combine(MoneyValue, Currency);
 
         public static bool operator ==(Money m1, Money m2)
             => m1.Equals(m2);
