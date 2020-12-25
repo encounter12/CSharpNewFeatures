@@ -116,6 +116,9 @@ namespace EqualityOrderComparisonMoney
             var m29 = new Money(3M, CurrencyCode.Bgn);
             var m30 = 100 / m29;
             Console.WriteLine($"m30 = 100 / m29: {m30}");
+
+            var m30MoneyValue = (decimal) m30;
+            Console.WriteLine($"m30MoneyValue = (decimal) m30: {m30MoneyValue}");
             
             var emptyList = new List<int>();
             Console.WriteLine($"Is m2 equal to emptyList: {m1.Equals(emptyList)}");
@@ -299,6 +302,8 @@ namespace EqualityOrderComparisonMoney
         {
             return new Money(m1Value / m2.MoneyValue, m2.Currency);
         }
+        
+        public static explicit operator decimal(Money m) => m.MoneyValue;
     }
 
     public enum CurrencyCode
