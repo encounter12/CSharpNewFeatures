@@ -37,7 +37,7 @@ namespace EqualityOrderComparisonMoney
         {
             builder.Append(nameof(MoneyValue));
             builder.Append(" = ");
-            builder.Append(MoneyValue);
+            builder.Append(MoneyValue.ToString("F"));
 
             builder.Append(", ");
 
@@ -162,6 +162,12 @@ namespace EqualityOrderComparisonMoney
 
         public static Money operator %(Money m, int divisor)
             => new Money(m.MoneyValue % divisor, m.Currency);
+        
+        public static Money operator +(Money m)
+            => new Money(m.MoneyValue, m.Currency);
+        
+        public static Money operator -(Money m)
+            => new Money(-m.MoneyValue, m.Currency);
 
         public static Money operator ++(Money m)
             => new Money(m.MoneyValue + 1M, m.Currency);

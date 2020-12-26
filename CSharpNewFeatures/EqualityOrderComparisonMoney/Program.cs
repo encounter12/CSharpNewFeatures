@@ -137,6 +137,9 @@ namespace EqualityOrderComparisonMoney
             Console.WriteLine($"m33++: {m33++}");
             Console.WriteLine($"++m33: {++m33}");
 
+            var m33Casted = (decimal) m33;
+            Console.WriteLine($"(decimal) m33: {m33Casted}");
+
             var emptyList = new List<int>();
             Console.WriteLine($"Is m2 equal to emptyList: {m1.Equals(emptyList)}");
 
@@ -155,6 +158,7 @@ namespace EqualityOrderComparisonMoney
 
             var moneyList = new List<Money>()
             {
+                new Money(10M, CurrencyCode.EUR),
                 new Money(10M, CurrencyCode.BGN),
                 new Money(15.5M, CurrencyCode.BGN),
                 new Money(120.50M, CurrencyCode.BGN),
@@ -214,6 +218,36 @@ namespace EqualityOrderComparisonMoney
             // var m37 = new Money(4.5M, CurrencyCode.USD);
             //
             // Console.WriteLine($"m36 > m37: {m36 > m37}");
+
+            // var moneyCollection = new MoneyCollection(CurrencyCode.USD)
+            // {
+            //     new Money(15.5M, CurrencyCode.EUR),
+            //     new Money(40.5M, CurrencyCode.USD)
+            // };
+            
+            var moneyCollection2 = new MoneyCollection(CurrencyCode.USD)
+            {
+                new Money(15.5M, CurrencyCode.USD),
+                new Money(40.5M, CurrencyCode.USD)
+            };
+
+            // moneyCollection2.Add(new Money(130.72M, CurrencyCode.AED));
+            
+            moneyCollection2.Add(new Money(130.72M, CurrencyCode.USD));
+
+            foreach (var money in moneyCollection2)
+            {
+                Console.WriteLine(money.ToString());
+            }
+
+            Console.WriteLine("-----------");
+
+            var moneyCollection3 = moneyCollection2.Where(m => m.MoneyValue == 130.72M);
+
+            foreach (var money in moneyCollection3)
+            {
+                Console.WriteLine(money.ToString());
+            }
         }
     }
 }
