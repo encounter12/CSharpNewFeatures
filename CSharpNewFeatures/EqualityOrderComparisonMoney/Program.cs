@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 
@@ -208,7 +207,7 @@ namespace EqualityOrderComparisonMoney
 
             var containsMoneyKey4 = dict2.ContainsKey(new Money(10M, CurrencyCode.Usd));
             Console.WriteLine($"dict2.ContainsKey(new Money(10M, CurrencyCode.Usd)):{containsMoneyKey4}");
-            
+
             //var m35 = new Money(-4.5M, CurrencyCode.Bgn);
         }
     }
@@ -225,7 +224,7 @@ namespace EqualityOrderComparisonMoney
         public decimal MoneyValue { get; init; }
 
         public CurrencyCode Currency { get; init; }
-        
+
         private static void Check(decimal moneyValue)
         {
             if (Validate(moneyValue).HasErrors)
@@ -240,7 +239,7 @@ namespace EqualityOrderComparisonMoney
             ValidateMoneyValue(note, moneyValue);
             return note;
         }
-        
+
         private static void ValidateMoneyValue(Notification note, decimal moneyValue)
         {
             if (moneyValue <= 0M)
@@ -431,24 +430,24 @@ namespace EqualityOrderComparisonMoney
 
     public class Notification
     {
-        private readonly List<Error> _errors = new ();
-        
-        public void AddError(string message, Exception e) 
+        private readonly List<Error> _errors = new();
+
+        public void AddError(string message, Exception e)
             => _errors.Add(new Error(message, e));
 
-        public void AddError(string message) =>  AddError(message, null);
-        
+        public void AddError(string message) => AddError(message, null);
+
         public bool HasErrors => _errors.Count > 0;
 
-        public string ErrorMessage 
+        public string ErrorMessage
             => string.Join(", ", _errors.Select(e => e.Message));
 
         private class Error
         {
             internal string Message { get; }
-            
+
             internal Exception Cause { get; }
-            
+
             internal Error(string message, Exception cause)
             {
                 this.Message = message;
