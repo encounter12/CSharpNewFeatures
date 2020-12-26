@@ -12,14 +12,14 @@ namespace EqualityOrderComparisonMoney
             var m1 = new Money
             {
                 MoneyValue = 120M,
-                Currency = CurrencyCode.Usd
+                Currency = CurrencyCode.USD
             };
 
             Console.WriteLine($"m1.ToString(): {m1}");
             Console.WriteLine($"m1.MoneyValue: {m1.MoneyValue}");
             Console.WriteLine($"m1.Currency: {m1.Currency}");
 
-            var m2 = new Money(moneyValue: 120M, currency: CurrencyCode.Usd);
+            var m2 = new Money(moneyValue: 120M, currency: CurrencyCode.USD);
 
             Console.WriteLine($"Are m1 and m2 equal: {m1.Equals(m2)}");
             Console.WriteLine($"Is m1 equal to null: {m1.Equals(null)}");
@@ -41,7 +41,7 @@ namespace EqualityOrderComparisonMoney
             Console.WriteLine($"(object)null == (object)null: {(object) null == (object) null}");
 
             Money? m5 = null;
-            Money? m6 = new Money(65M, CurrencyCode.Bgn);
+            Money? m6 = new Money(65M, CurrencyCode.BGN);
 
             Console.WriteLine($"m5.Equals(m5): {m5.Equals(m5)}");
 
@@ -63,35 +63,35 @@ namespace EqualityOrderComparisonMoney
 
             Console.WriteLine($"m6 is Money anotherMoney2: {m6 is Money anotherMoney2}");
 
-            var m7 = new Money(42, CurrencyCode.Eur);
-            Money? m8 = new Money(42, CurrencyCode.Eur);
+            var m7 = new Money(42, CurrencyCode.EUR);
+            Money? m8 = new Money(42, CurrencyCode.EUR);
             Console.WriteLine($"m7.Equals(m8): {m7.Equals(m8)}");
 
             Money? m9 = null;
-            Money? m10 = new Money(143, CurrencyCode.Eur);
+            Money? m10 = new Money(143, CurrencyCode.EUR);
             Console.WriteLine($"m9.Equals(m10): {m9.Equals(m10)}");
 
-            var m11 = new Money(470, CurrencyCode.Eur);
-            var m12 = new Money(140, CurrencyCode.Eur);
+            var m11 = new Money(470, CurrencyCode.EUR);
+            var m12 = new Money(140, CurrencyCode.EUR);
             Console.WriteLine($"m11 > m12: {m11 > m12}");
             Console.WriteLine($"m11 >= m12: {m11 >= m12}");
             Console.WriteLine($"m11 < m12: {m11 < m12}");
             Console.WriteLine($"m11 <= m12: {m11 <= m12}");
 
             Money? m13 = null;
-            var m14 = new Money(140, CurrencyCode.Eur);
+            var m14 = new Money(140, CurrencyCode.EUR);
             Console.WriteLine($"m13 > m14: {m13 > m14}");
             Console.WriteLine($"m14 > m13: {m14 > m13}");
             Console.WriteLine($"m13 > m13: {m13 > m13}");
             Console.WriteLine($"m13 == m13: {m13 == m13}");
 
-            var m15 = new Money(30, CurrencyCode.Eur);
-            Money? m16 = new Money(70, CurrencyCode.Eur);
+            var m15 = new Money(30, CurrencyCode.EUR);
+            Money? m16 = new Money(70, CurrencyCode.EUR);
             Console.WriteLine($"m15 > m16: {m15 > m16}");
             Console.WriteLine($"m15 < m16: {m15 < m16}");
 
-            var m17 = new Money(30.5M, CurrencyCode.Eur);
-            var m18 = new Money(70, CurrencyCode.Eur);
+            var m17 = new Money(30.5M, CurrencyCode.EUR);
+            var m18 = new Money(70, CurrencyCode.EUR);
             var m19 = m17 + m18;
             Console.WriteLine($"m19 = m17 + m18: {m19}");
 
@@ -101,13 +101,13 @@ namespace EqualityOrderComparisonMoney
             var m20 = m19 + 10;
             Console.WriteLine($"m20 = m19 + 10: {m20}");
 
-            var m21 = new Money(20.5M, CurrencyCode.Bgn);
-            var m22 = new Money(3M, CurrencyCode.Bgn);
+            var m21 = new Money(20.5M, CurrencyCode.BGN);
+            var m22 = new Money(3M, CurrencyCode.BGN);
             var m23 = m21 * m22;
             Console.WriteLine($"m23 = m21 * m22: {m23}");
 
-            var m24 = new Money(48.9M, CurrencyCode.Bgn);
-            var m25 = new Money(3M, CurrencyCode.Bgn);
+            var m24 = new Money(48.9M, CurrencyCode.BGN);
+            var m25 = new Money(3M, CurrencyCode.BGN);
             var m26 = m24 / m25;
             Console.WriteLine($"m26 = m24 / m25: {m26}");
 
@@ -117,7 +117,7 @@ namespace EqualityOrderComparisonMoney
             var m28 = 90 / m25;
             Console.WriteLine($"m28 = 90 / m25: {m28}");
 
-            var m29 = new Money(3M, CurrencyCode.Bgn);
+            var m29 = new Money(3M, CurrencyCode.BGN);
             var m30 = 100 / m29;
             Console.WriteLine($"m30 = 100 / m29: {m30}");
 
@@ -127,7 +127,7 @@ namespace EqualityOrderComparisonMoney
             var m31 = new Money();
             Console.WriteLine($"m31.ToString(): {m31.ToString()}");
 
-            var m32 = new Money(5.5M, CurrencyCode.Bgn);
+            var m32 = new Money(5.5M, CurrencyCode.BGN);
             var m33 = m32 % 2;
             Console.WriteLine($"m33 = m32 % 3: {m33}");
             Console.WriteLine($"5.5M % 2: {5.5M % 2}");
@@ -151,14 +151,14 @@ namespace EqualityOrderComparisonMoney
 
             Console.WriteLine($"Are m1 and m2 Hash Codes equal: {m1.GetHashCode() == m2.GetHashCode()}");
 
-            var searchedMoney = new Money(10M, CurrencyCode.Bgn);
+            var searchedMoney = new Money(10M, CurrencyCode.BGN);
 
             var moneyList = new List<Money>()
             {
-                new Money(10M, CurrencyCode.Bgn),
-                new Money(15.5M, CurrencyCode.Bgn),
-                new Money(120.50M, CurrencyCode.Bgn),
-                new Money(10M, CurrencyCode.Bgn)
+                new Money(10M, CurrencyCode.BGN),
+                new Money(15.5M, CurrencyCode.BGN),
+                new Money(120.50M, CurrencyCode.BGN),
+                new Money(10M, CurrencyCode.BGN)
             };
 
             var moneyExists = moneyList.Contains(searchedMoney);
@@ -171,7 +171,7 @@ namespace EqualityOrderComparisonMoney
             var lastIndexOfSearchedMoney = moneyList.LastIndexOf(searchedMoney);
             Console.WriteLine($"moneyList.IndexOf(searchedMoney): {lastIndexOfSearchedMoney}");
 
-            var m34 = new Money(10M, CurrencyCode.Bgn);
+            var m34 = new Money(10M, CurrencyCode.BGN);
 
             // var dict4 = new Dictionary<Money, string>()
             // {
@@ -194,18 +194,18 @@ namespace EqualityOrderComparisonMoney
 
             var dict2 = new Dictionary<Money, string>()
             {
-                {new Money(10M, CurrencyCode.Bgn), "Mike"},
-                {new Money(15M, CurrencyCode.Bgn), "John"},
-                {new Money(25.5M, CurrencyCode.Bgn), "Lisa"}
+                {new Money(10M, CurrencyCode.BGN), "Mike"},
+                {new Money(15M, CurrencyCode.BGN), "John"},
+                {new Money(25.5M, CurrencyCode.BGN), "Lisa"}
             };
 
-            var containsMoneyKey2 = dict2.ContainsKey(new Money(15M, CurrencyCode.Bgn));
+            var containsMoneyKey2 = dict2.ContainsKey(new Money(15M, CurrencyCode.BGN));
             Console.WriteLine($"dict2.ContainsKey(new Money(15M, CurrencyCode.Bgn)):{containsMoneyKey2}");
 
-            var containsMoneyKey3 = dict2.ContainsKey(new Money(41.5M, CurrencyCode.Bgn));
+            var containsMoneyKey3 = dict2.ContainsKey(new Money(41.5M, CurrencyCode.BGN));
             Console.WriteLine($"dict2.ContainsKey(new Money(41.5M, CurrencyCode.Bgn)):{containsMoneyKey3}");
 
-            var containsMoneyKey4 = dict2.ContainsKey(new Money(10M, CurrencyCode.Usd));
+            var containsMoneyKey4 = dict2.ContainsKey(new Money(10M, CurrencyCode.USD));
             Console.WriteLine($"dict2.ContainsKey(new Money(10M, CurrencyCode.Usd)):{containsMoneyKey4}");
 
             //var m35 = new Money(-4.5M, CurrencyCode.Bgn);
