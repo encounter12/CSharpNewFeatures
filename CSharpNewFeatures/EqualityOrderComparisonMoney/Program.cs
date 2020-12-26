@@ -189,7 +189,7 @@ namespace EqualityOrderComparisonMoney
 
             var containsMoneyKey = dict.ContainsKey(m34);
 
-            Console.WriteLine($"dict.ContainsKey(new Money(10, CurrencyCode.Bgn)):{containsMoneyKey}");
+            Console.WriteLine($"dict.ContainsKey(new Money(10, CurrencyCode.BGN)):{containsMoneyKey}");
             Console.WriteLine($"dict.Count:{dict.Count}");
 
             var dict2 = new Dictionary<Money, string>()
@@ -200,13 +200,13 @@ namespace EqualityOrderComparisonMoney
             };
 
             var containsMoneyKey2 = dict2.ContainsKey(new Money(15M, CurrencyCode.BGN));
-            Console.WriteLine($"dict2.ContainsKey(new Money(15M, CurrencyCode.Bgn)):{containsMoneyKey2}");
+            Console.WriteLine($"dict2.ContainsKey(new Money(15M, CurrencyCode.BGN)):{containsMoneyKey2}");
 
             var containsMoneyKey3 = dict2.ContainsKey(new Money(41.5M, CurrencyCode.BGN));
-            Console.WriteLine($"dict2.ContainsKey(new Money(41.5M, CurrencyCode.Bgn)):{containsMoneyKey3}");
+            Console.WriteLine($"dict2.ContainsKey(new Money(41.5M, CurrencyCode.BGN)):{containsMoneyKey3}");
 
             var containsMoneyKey4 = dict2.ContainsKey(new Money(10M, CurrencyCode.USD));
-            Console.WriteLine($"dict2.ContainsKey(new Money(10M, CurrencyCode.Usd)):{containsMoneyKey4}");
+            Console.WriteLine($"dict2.ContainsKey(new Money(10M, CurrencyCode.USD)):{containsMoneyKey4}");
 
             //var m35 = new Money(-4.5M, CurrencyCode.Bgn);
         }
