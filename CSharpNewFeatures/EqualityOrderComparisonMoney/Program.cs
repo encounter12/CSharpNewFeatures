@@ -209,6 +209,11 @@ namespace EqualityOrderComparisonMoney
             Console.WriteLine($"dict2.ContainsKey(new Money(10M, CurrencyCode.USD)):{containsMoneyKey4}");
 
             //var m35 = new Money(-4.5M, CurrencyCode.BGN);
+            
+            // var m36 = new Money(8.5M, CurrencyCode.BGN);
+            // var m37 = new Money(4.5M, CurrencyCode.USD);
+            //
+            // Console.WriteLine($"m36 > m37: {m36 > m37}");
         }
     }
 }

@@ -7,7 +7,12 @@ namespace EqualityOrderComparisonMoney
     {
         public Money(decimal moneyValue, CurrencyCode currency)
         {
-            Check(moneyValue);
+            if (moneyValue <= 0M)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(moneyValue), moneyValue, "MoneyValue should be greater than zero");
+            }
+            
             MoneyValue = moneyValue;
             Currency = currency;
         }
@@ -15,32 +20,7 @@ namespace EqualityOrderComparisonMoney
         public decimal MoneyValue { get; init; }
 
         public CurrencyCode Currency { get; init; }
-
-        private static void Check(decimal moneyValue)
-        {
-            Notification notification = Validate(moneyValue);
-            
-            if (notification.HasErrors)
-            {
-                throw new ArgumentOutOfRangeException(nameof(moneyValue), moneyValue, notification.ErrorMessage);
-            }
-        }
-
-        private static Notification Validate(decimal moneyValue)
-        {
-            var note = new Notification();
-            ValidateMoneyValue(note, moneyValue);
-            return note;
-        }
-
-        private static void ValidateMoneyValue(Notification note, decimal moneyValue)
-        {
-            if (moneyValue <= 0M)
-            {
-                note.AddError("MoneyValue should be greater than zero");
-            }
-        }
-
+        
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();
@@ -126,15 +106,11 @@ namespace EqualityOrderComparisonMoney
             return new Money(m1.MoneyValue + m2.MoneyValue, m1.Currency);
         }
 
-        public static Money operator +(Money m1, decimal m2Value)
-        {
-            return new Money(m1.MoneyValue + m2Value, m1.Currency);
-        }
+        public static Money operator +(Money m1, decimal m2Value) 
+            => new Money(m1.MoneyValue + m2Value, m1.Currency);
 
-        public static Money operator +(decimal m1Value, Money m2)
-        {
-            return new Money(m1Value + m2.MoneyValue, m2.Currency);
-        }
+        public static Money operator +(decimal m1Value, Money m2) 
+            => new Money(m1Value + m2.MoneyValue, m2.Currency);
 
         public static Money operator -(Money m1, Money m2)
         {
@@ -147,14 +123,10 @@ namespace EqualityOrderComparisonMoney
         }
 
         public static Money operator -(Money m1, decimal m2Value)
-        {
-            return new Money(m1.MoneyValue - m2Value, m1.Currency);
-        }
+            => new Money(m1.MoneyValue - m2Value, m1.Currency);
 
         public static Money operator -(decimal m1Value, Money m2)
-        {
-            return new Money(m1Value - m2.MoneyValue, m2.Currency);
-        }
+            => new Money(m1Value - m2.MoneyValue, m2.Currency);
 
         public static Money operator *(Money m1, Money m2)
         {
@@ -167,14 +139,10 @@ namespace EqualityOrderComparisonMoney
         }
 
         public static Money operator *(Money m1, decimal m2Value)
-        {
-            return new Money(m1.MoneyValue * m2Value, m1.Currency);
-        }
+            => new Money(m1.MoneyValue * m2Value, m1.Currency);
 
         public static Money operator *(decimal m1Value, Money m2)
-        {
-            return new Money(m1Value * m2.MoneyValue, m2.Currency);
-        }
+            => new Money(m1Value * m2.MoneyValue, m2.Currency);
 
         public static Money operator /(Money m1, Money m2)
         {
@@ -187,29 +155,19 @@ namespace EqualityOrderComparisonMoney
         }
 
         public static Money operator /(Money m1, decimal m2Value)
-        {
-            return new Money(m1.MoneyValue / m2Value, m1.Currency);
-        }
+            => new Money(m1.MoneyValue / m2Value, m1.Currency);
 
         public static Money operator /(decimal m1Value, Money m2)
-        {
-            return new Money(m1Value / m2.MoneyValue, m2.Currency);
-        }
+            => new Money(m1Value / m2.MoneyValue, m2.Currency);
 
         public static Money operator %(Money m, int divisor)
-        {
-            return new Money(m.MoneyValue % divisor, m.Currency);
-        }
+            => new Money(m.MoneyValue % divisor, m.Currency);
 
         public static Money operator ++(Money m)
-        {
-            return new Money(m.MoneyValue + 1M, m.Currency);
-        }
+            => new Money(m.MoneyValue + 1M, m.Currency);
 
         public static Money operator --(Money m)
-        {
-            return new Money(m.MoneyValue - 1M, m.Currency);
-        }
+            => new Money(m.MoneyValue - 1M, m.Currency);
 
         public static explicit operator decimal(Money m) => m.MoneyValue;
     }
