@@ -18,9 +18,11 @@ namespace EqualityOrderComparisonMoney
 
         private static void Check(decimal moneyValue)
         {
-            if (Validate(moneyValue).HasErrors)
+            Notification notification = Validate(moneyValue);
+            
+            if (notification.HasErrors)
             {
-                throw new ArgumentException(Validate(moneyValue).ErrorMessage);
+                throw new ArgumentException(notification.ErrorMessage);
             }
         }
 
