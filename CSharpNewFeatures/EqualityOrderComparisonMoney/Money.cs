@@ -7,10 +7,10 @@ namespace EqualityOrderComparisonMoney
     {
         public Money(decimal moneyValue, CurrencyCode currency)
         {
-            if (moneyValue <= 0M)
+            if (moneyValue < 0M)
             {
                 throw new ArgumentOutOfRangeException(
-                    nameof(moneyValue), moneyValue, "MoneyValue should be greater than zero");
+                    nameof(moneyValue), moneyValue, "MoneyValue should be equal or greater than zero");
             }
             
             MoneyValue = moneyValue;
@@ -44,6 +44,18 @@ namespace EqualityOrderComparisonMoney
             builder.Append(nameof(Currency));
             builder.Append(" = ");
             builder.Append(Currency.ToString());
+        }
+
+        public string ToString(MoneyFormattingType formattingType)
+        {
+            var moneyString = formattingType switch
+            {
+                MoneyFormattingType.MoneyValueCurrencyCode => $"{MoneyValue} {Currency}",
+                MoneyFormattingType.CurrencyCodeMoneyValue => $"{Currency} {MoneyValue}",
+                _ => string.Empty
+            };
+
+            return moneyString;
         }
 
         public bool Equals(Money other)
@@ -212,5 +224,12 @@ namespace EqualityOrderComparisonMoney
             => new Money(m.MoneyValue - 1M, m.Currency);
 
         public static explicit operator decimal(Money m) => m.MoneyValue;
+    }
+
+    public enum MoneyFormattingType
+    {
+        MoneyValueCurrencyCode,
+        CurrencyCodeMoneyValue,
+        CurrencySignMoneyValue
     }
 }

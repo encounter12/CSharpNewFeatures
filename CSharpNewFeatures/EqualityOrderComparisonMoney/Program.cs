@@ -278,6 +278,20 @@ namespace EqualityOrderComparisonMoney
             bankAccount.Deposit(new Money(200M, CurrencyCode.EUR));
 
             Console.WriteLine($"Bank Account Balance:{bankAccount.Balance.MoneyValue}");
+            Console.WriteLine($"Bank Account Balance:{bankAccount.Balance.ToString(MoneyFormattingType.MoneyValueCurrencyCode)}");
+
+            Notification note = bankAccount.Withdraw(new Money(600M, CurrencyCode.EUR));
+
+            if (note.HasErrors)
+            {
+                Console.WriteLine($"note.ErrorMessage: {note.ErrorMessage}");
+            }
+
+            var bankAccount2 = new BankAccount(AccountType.CashingAccount, CurrencyCode.USD);
+
+            Console.WriteLine($"bankAccount2.Balance: {bankAccount2.Balance}");
+            Console.WriteLine(
+                $"bankAccount2.Balance: {bankAccount2.Balance.ToString(MoneyFormattingType.CurrencyCodeMoneyValue)}");
         }
     }
 }

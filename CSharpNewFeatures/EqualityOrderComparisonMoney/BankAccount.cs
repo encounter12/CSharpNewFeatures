@@ -5,10 +5,20 @@ namespace EqualityOrderComparisonMoney
         public AccountType AccountType { get; }
         public Money Balance { get; private set; }
         
-        public BankAccount(AccountType accountType, Money initialMoney)
+        public CurrencyCode Currency { get; }
+        
+        public BankAccount(AccountType accountType, CurrencyCode currency)
         {
             this.AccountType = accountType;
-            this.Balance = initialMoney;
+            this.Currency = currency;
+            this.Balance = new Money(0M, currency);
+        }
+        
+        public BankAccount(AccountType accountType, Money balanceAmount)
+        {
+            this.AccountType = accountType;
+            this.Currency = balanceAmount.Currency;
+            this.Balance = balanceAmount;
         }
 
         public void Deposit(Money money)
@@ -42,7 +52,7 @@ namespace EqualityOrderComparisonMoney
             if (AccountType != AccountType.CreditAccount && Balance < money)
             {
                 note.AddError(
-                    $"The Balance value:{Balance.MoneyValue} is less than withdrawal amount: {money.MoneyValue}");
+                    $"The Balance value: {Balance.MoneyValue} is less than withdrawal amount: {money.MoneyValue}");
             }
         }
     }

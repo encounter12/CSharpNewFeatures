@@ -22,6 +22,14 @@ namespace EqualityOrderComparisonMoney
         public string ErrorMessage
             => string.Join(", ", _errors.Select(e => e.Message));
 
+        public List<string> Errors
+        {
+            get
+            {
+                return _errors.Select(e => e.Message).ToList();
+            }
+        }
+
         private class Error
         {
             internal string Message { get; }
