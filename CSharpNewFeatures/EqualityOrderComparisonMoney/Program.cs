@@ -136,6 +136,30 @@ namespace EqualityOrderComparisonMoney
             Console.WriteLine($"m33++: {m33}");
             Console.WriteLine($"m33++: {m33++}");
             Console.WriteLine($"++m33: {++m33}");
+            Console.WriteLine($"m33 > 0: {m33 > 0}");
+            Console.WriteLine($"m33 < 0: {m33 < 0}");
+            Console.WriteLine($"m33 == 0: {m33 == 0}");
+            Console.WriteLine($"0 == m33: {0 == m33}");
+
+            var n1 = new Money(1M, CurrencyCode.BGN);
+
+            Console.WriteLine($"n1 == 1: {n1 == 1}");
+            Console.WriteLine($"1 == n1: {1 == n1}");
+            
+            Console.WriteLine($"n1 < 2: {n1 < 2}");
+            Console.WriteLine($"2 > n1: {2 > n1}");
+            
+            Console.WriteLine($"n1 > 2: {n1 > 2}");
+            Console.WriteLine($"2 < n1: {2 < n1}");
+            
+            Console.WriteLine($"n1 >= 2: {n1 >= 2}");
+            Console.WriteLine($"n1 <= 2: {n1 <= 2}");
+            
+            Console.WriteLine($"n1 >= 1: {n1 >= 1}");
+            Console.WriteLine($"n1 <= 1: {n1 <= 1}");
+            
+            Console.WriteLine($"1 >= n1: {1 >= n1}");
+            Console.WriteLine($"1 <= n1: {1 <= n1}");
 
             var m33Casted = (decimal) m33;
             Console.WriteLine($"(decimal) m33: {m33Casted}");
@@ -248,6 +272,12 @@ namespace EqualityOrderComparisonMoney
             {
                 Console.WriteLine(money.ToString());
             }
+
+            var bankAccount = new BankAccount(AccountType.CashingAccount, new Money(100M, CurrencyCode.EUR));
+            
+            bankAccount.Deposit(new Money(200M, CurrencyCode.EUR));
+
+            Console.WriteLine($"Bank Account Balance:{bankAccount.Balance.MoneyValue}");
         }
     }
 }

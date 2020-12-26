@@ -83,18 +83,54 @@ namespace EqualityOrderComparisonMoney
 
         public static bool operator !=(Money? m1, Money? m2)
             => m1.HasValue && m2.HasValue ? !m1.Equals(m2) : m1.HasValue ^ m2.HasValue;
+        
+        public static bool operator ==(Money? m1, decimal m2Value)
+            => m1?.MoneyValue.Equals(m2Value) ?? false;
+        
+        public static bool operator !=(Money? m1, decimal m2Value)
+            => !m1?.MoneyValue.Equals(m2Value) ?? false;
+        
+        public static bool operator ==(decimal m1Value, Money? m2)
+            => m2?.MoneyValue.Equals(m1Value) ?? false;
+        
+        public static bool operator !=(decimal m1Value, Money? m2)
+            => !m2?.MoneyValue.Equals(m1Value) ?? false;
 
         public static bool operator <(Money m1, Money m2)
             => m1.CompareTo(m2) < 0;
 
         public static bool operator >(Money m1, Money m2)
             => m1.CompareTo(m2) > 0;
+        
+        public static bool operator <(Money m1, decimal m2Value)
+            => m1.MoneyValue.CompareTo(m2Value) < 0;
+        
+        public static bool operator >(Money m1, decimal m2Value)
+            => m1.MoneyValue.CompareTo(m2Value) > 0;
+        
+        public static bool operator <(decimal m1Value, Money m2)
+            => m1Value.CompareTo(m2.MoneyValue) < 0;
+        
+        public static bool operator >(decimal m1Value, Money m2)
+            => m1Value.CompareTo(m2.MoneyValue) > 0;
 
         public static bool operator <=(Money m1, Money m2)
             => m1 == m2 || m1 < m2;
 
         public static bool operator >=(Money m1, Money m2)
             => m1 == m2 || m1 > m2;
+        
+        public static bool operator <=(Money m1, decimal m2Value)
+            => m1.MoneyValue == m2Value || m1.MoneyValue < m2Value;
+        
+        public static bool operator >=(Money m1, decimal m2Value)
+            => m1.MoneyValue == m2Value || m1.MoneyValue > m2Value;
+        
+        public static bool operator <=(decimal m1Value, Money m2)
+            => m1Value == m2.MoneyValue || m1Value < m2.MoneyValue;
+        
+        public static bool operator >=(decimal m1Value, Money m2)
+            => m1Value == m2.MoneyValue || m1Value > m2.MoneyValue;
 
         public static Money operator +(Money m1, Money m2)
         {
