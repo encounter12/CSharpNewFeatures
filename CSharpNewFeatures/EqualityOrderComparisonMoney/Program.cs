@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace EqualityOrderComparisonMoney
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             var m1 = new Money
             {
@@ -19,7 +18,7 @@ namespace EqualityOrderComparisonMoney
             Console.WriteLine($"m1.MoneyValue: {m1.MoneyValue}");
             Console.WriteLine($"m1.Currency: {m1.Currency}");
 
-            var m2 = new Money(moneyValue: 120M, currency: CurrencyCode.USD);
+            var m2 = new Money(120M, CurrencyCode.USD);
 
             Console.WriteLine($"Are m1 and m2 equal: {m1.Equals(m2)}");
             Console.WriteLine($"Is m1 equal to null: {m1.Equals(null)}");
@@ -180,13 +179,13 @@ namespace EqualityOrderComparisonMoney
 
             var searchedMoney = new Money(10M, CurrencyCode.BGN);
 
-            var moneyList = new List<Money>()
+            var moneyList = new List<Money>
             {
-                new Money(10M, CurrencyCode.EUR),
-                new Money(10M, CurrencyCode.BGN),
-                new Money(15.5M, CurrencyCode.BGN),
-                new Money(120.50M, CurrencyCode.BGN),
-                new Money(10M, CurrencyCode.BGN)
+                new(10M, CurrencyCode.EUR),
+                new(10M, CurrencyCode.BGN),
+                new(15.5M, CurrencyCode.BGN),
+                new(120.50M, CurrencyCode.BGN),
+                new(10M, CurrencyCode.BGN)
             };
 
             var moneyExists = moneyList.Contains(searchedMoney);
@@ -209,7 +208,7 @@ namespace EqualityOrderComparisonMoney
 
             //dict.Add(new Money(10M, CurrencyCode.Bgn), "Gosho");
 
-            var dict = new Dictionary<Money, string>()
+            var dict = new Dictionary<Money, string>
             {
                 [m34] = "John",
                 [m34] = "John"
@@ -220,7 +219,7 @@ namespace EqualityOrderComparisonMoney
             Console.WriteLine($"dict.ContainsKey(new Money(10, CurrencyCode.BGN)):{containsMoneyKey}");
             Console.WriteLine($"dict.Count:{dict.Count}");
 
-            var dict2 = new Dictionary<Money, string>()
+            var dict2 = new Dictionary<Money, string>
             {
                 {new Money(10M, CurrencyCode.BGN), "Mike"},
                 {new Money(15M, CurrencyCode.BGN), "John"},
@@ -248,16 +247,16 @@ namespace EqualityOrderComparisonMoney
             //     new Money(15.5M, CurrencyCode.EUR),
             //     new Money(40.5M, CurrencyCode.USD)
             // };
-            
+
             var moneyCollection2 = new MoneyCollection(CurrencyCode.USD)
             {
-                new Money(15.5M, CurrencyCode.USD),
-                new Money(40.5M, CurrencyCode.USD)
+                new(15.5M, CurrencyCode.USD), 
+                new(40.5M, CurrencyCode.USD), 
+                new(130.72M, CurrencyCode.USD)
             };
 
             // moneyCollection2.Add(new Money(130.72M, CurrencyCode.AED));
-            
-            moneyCollection2.Add(new Money(130.72M, CurrencyCode.USD));
+
 
             foreach (var money in moneyCollection2)
             {

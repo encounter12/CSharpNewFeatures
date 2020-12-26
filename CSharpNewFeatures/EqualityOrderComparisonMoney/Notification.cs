@@ -38,8 +38,8 @@ namespace EqualityOrderComparisonMoney
 
             internal Error(string message, Exception cause)
             {
-                this.Message = message;
-                this.Cause = cause;
+                Message = message;
+                Cause = cause;
             }
         }
     }

@@ -2,28 +2,27 @@ namespace EqualityOrderComparisonMoney
 {
     public class BankAccount
     {
-        public AccountType AccountType { get; }
+        private AccountType AccountType { get; }
         public Money Balance { get; private set; }
-        
-        public CurrencyCode Currency { get; }
+        private CurrencyCode Currency { get; }
         
         public BankAccount(AccountType accountType, CurrencyCode currency)
         {
-            this.AccountType = accountType;
-            this.Currency = currency;
-            this.Balance = new Money(0M, currency);
+            AccountType = accountType;
+            Currency = currency;
+            Balance = new Money(0M, currency);
         }
         
         public BankAccount(AccountType accountType, Money balanceAmount)
         {
-            this.AccountType = accountType;
-            this.Currency = balanceAmount.Currency;
-            this.Balance = balanceAmount;
+            AccountType = accountType;
+            Currency = balanceAmount.Currency;
+            Balance = balanceAmount;
         }
 
         public void Deposit(Money money)
         {
-            this.Balance += money;
+            Balance += money;
         }
 
         public Notification Withdraw(Money money)
@@ -35,7 +34,7 @@ namespace EqualityOrderComparisonMoney
                 return notification;
             }
             
-            this.Balance -= money;
+            Balance -= money;
 
             return notification;
         }

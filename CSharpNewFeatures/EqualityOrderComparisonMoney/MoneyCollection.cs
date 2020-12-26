@@ -9,7 +9,7 @@ namespace EqualityOrderComparisonMoney
 
         public MoneyCollection(CurrencyCode currencyCode)
         {
-            this._currencyCode = currencyCode;
+            _currencyCode = currencyCode;
         }
         
         protected override void InsertItem (int index, Money item)
