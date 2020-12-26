@@ -4,6 +4,10 @@ using System.Linq;
 
 namespace EqualityOrderComparisonMoney
 {
+    /// <summary>
+    /// Replacing Throwing Exceptions with Notification in Validations (Martin Fowler, 09 December 2014)
+    /// See: <a href="https://martinfowler.com/articles/replaceThrowWithNotification.html">Martin Fowler's article</a>
+    /// </summary>
     public class Notification
     {
         private readonly List<Error> _errors = new();
