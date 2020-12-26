@@ -22,7 +22,7 @@ namespace EqualityOrderComparisonMoney
             
             if (notification.HasErrors)
             {
-                throw new ArgumentException(notification.ErrorMessage);
+                throw new ArgumentOutOfRangeException(nameof(moneyValue), moneyValue, notification.ErrorMessage);
             }
         }
 

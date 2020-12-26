@@ -208,7 +208,7 @@ namespace EqualityOrderComparisonMoney
             var containsMoneyKey4 = dict2.ContainsKey(new Money(10M, CurrencyCode.USD));
             Console.WriteLine($"dict2.ContainsKey(new Money(10M, CurrencyCode.USD)):{containsMoneyKey4}");
 
-            //var m35 = new Money(-4.5M, CurrencyCode.Bgn);
+            //var m35 = new Money(-4.5M, CurrencyCode.BGN);
         }
     }
 }
