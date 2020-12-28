@@ -5,11 +5,16 @@ namespace EqualityOrderComparisonMoney
 {
     public class MoneyCollection : Collection<Money>
     {
-        private readonly CurrencyCode _currencyCode;
+        private readonly Currency _currency;
 
-        public MoneyCollection(CurrencyCode currencyCode)
+        public MoneyCollection(string currencyCode)
         {
-            _currencyCode = currencyCode;
+            _currency = new Currency(currencyCode);
+        }
+        
+        public MoneyCollection(Currency currency)
+        {
+            _currency = currency;
         }
         
         protected override void InsertItem (int index, Money item)
@@ -26,10 +31,10 @@ namespace EqualityOrderComparisonMoney
         
         private void Validate(Money item)
         {
-            if (item.Currency != _currencyCode)
+            if (item.Currency != _currency)
             {
                 throw new InvalidOperationException(
-                    $"Money with currency different than the default: {_currencyCode} can't be added to MoneyCollection");
+                    $"Money with currency different than the default: {_currency.Code} can't be added to MoneyCollection");
             }
         }
     }

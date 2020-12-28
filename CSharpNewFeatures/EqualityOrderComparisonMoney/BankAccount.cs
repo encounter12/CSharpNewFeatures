@@ -4,10 +4,18 @@ namespace EqualityOrderComparisonMoney
     {
         private AccountType AccountType { get; }
         public Money Balance { get; private set; }
-        private CurrencyCode Currency { get; }
+        private Currency Currency { get; }
         
-        public BankAccount(AccountType accountType, CurrencyCode currency)
+        public BankAccount(AccountType accountType, Currency currency)
         {
+            AccountType = accountType;
+            Currency = currency;
+            Balance = new Money(0M, currency);
+        }
+        
+        public BankAccount(AccountType accountType, string currencyCode)
+        {
+            var currency = new Currency(currencyCode);
             AccountType = accountType;
             Currency = currency;
             Balance = new Money(0M, currency);

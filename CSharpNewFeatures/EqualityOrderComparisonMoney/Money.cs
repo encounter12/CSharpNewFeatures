@@ -5,7 +5,7 @@ namespace EqualityOrderComparisonMoney
 {
     public readonly struct Money : IEquatable<Money>, IComparable<Money>, IComparable
     {
-        public Money(decimal moneyValue, CurrencyCode currency)
+        public Money(decimal moneyValue, Currency currency)
         {
             if (moneyValue < 0M)
             {
@@ -16,10 +16,22 @@ namespace EqualityOrderComparisonMoney
             MoneyValue = moneyValue;
             Currency = currency;
         }
+        
+        public Money(decimal moneyValue, string currencyCode)
+        {
+            if (moneyValue < 0M)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(moneyValue), moneyValue, "MoneyValue should be equal or greater than zero");
+            }
+            
+            MoneyValue = moneyValue;
+            Currency = new Currency(currencyCode);
+        }
 
         public decimal MoneyValue { get; init; }
 
-        public CurrencyCode Currency { get; init; }
+        public Currency Currency { get; init; }
         
         public override string ToString()
         {
@@ -50,8 +62,8 @@ namespace EqualityOrderComparisonMoney
         {
             var moneyString = formattingType switch
             {
-                MoneyFormattingType.MoneyValueCurrencyCode => $"{MoneyValue} {Currency}",
-                MoneyFormattingType.CurrencyCodeMoneyValue => $"{Currency} {MoneyValue}",
+                MoneyFormattingType.MoneyValueCurrencyCode => $"{MoneyValue} {Currency.Code}",
+                MoneyFormattingType.CurrencyCodeMoneyValue => $"{Currency.Code} {MoneyValue}",
                 _ => string.Empty
             };
 
@@ -91,13 +103,13 @@ namespace EqualityOrderComparisonMoney
         }
 
         // ReSharper disable once InconsistentNaming
-        public static Money USD(decimal moneyValue) => new(moneyValue, CurrencyCode.USD);
+        public static Money USD(decimal moneyValue) => new(moneyValue, Currency.USD);
         
         // ReSharper disable once InconsistentNaming
-        public static Money EUR(decimal moneyValue) => new(moneyValue, CurrencyCode.EUR);
+        public static Money EUR(decimal moneyValue) => new(moneyValue, Currency.EUR);
         
         // ReSharper disable once InconsistentNaming
-        public static Money BGN(decimal moneyValue) => new(moneyValue, CurrencyCode.BGN);
+        public static Money BGN(decimal moneyValue) => new(moneyValue, Currency.BGN);
 
         public static bool operator ==(Money? m1, Money? m2)
             => m1.HasValue && m2.HasValue ? m1.Equals(m2) : !m1.HasValue && !m2.HasValue;
