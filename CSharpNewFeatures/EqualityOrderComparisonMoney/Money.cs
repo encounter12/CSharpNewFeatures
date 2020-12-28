@@ -90,6 +90,15 @@ namespace EqualityOrderComparisonMoney
             return CompareTo((Money) other);
         }
 
+        // ReSharper disable once InconsistentNaming
+        public static Money USD(decimal moneyValue) => new(moneyValue, CurrencyCode.USD);
+        
+        // ReSharper disable once InconsistentNaming
+        public static Money EUR(decimal moneyValue) => new(moneyValue, CurrencyCode.EUR);
+        
+        // ReSharper disable once InconsistentNaming
+        public static Money BGN(decimal moneyValue) => new(moneyValue, CurrencyCode.BGN);
+
         public static bool operator ==(Money? m1, Money? m2)
             => m1.HasValue && m2.HasValue ? m1.Equals(m2) : !m1.HasValue && !m2.HasValue;
 

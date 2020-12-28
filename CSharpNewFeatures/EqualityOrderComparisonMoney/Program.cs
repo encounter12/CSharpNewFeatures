@@ -291,6 +291,10 @@ namespace EqualityOrderComparisonMoney
             Console.WriteLine($"bankAccount2.Balance: {bankAccount2.Balance}");
             Console.WriteLine(
                 $"bankAccount2.Balance: {bankAccount2.Balance.ToString(MoneyFormattingType.CurrencyCodeMoneyValue)}");
+
+            Console.WriteLine($"Money.USD(24.5M).ToString():{Money.USD(24.5M)}");
+            Console.WriteLine($"Money.EUR(24.5M).ToString():{Money.EUR(24.5M)}");
+            Console.WriteLine($"Money.BGN(24.5M).ToString():{Money.BGN(24.5M)}");
         }
     }
 }
