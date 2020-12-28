@@ -8,14 +8,10 @@ namespace EqualityOrderComparisonMoney
     {
         private static void Main()
         {
-            var m1 = new Money
-            {
-                MoneyValue = 120M,
-                Currency = new Currency(Currency.USD)
-            };
+            var m1 = new Money(120M, new Currency(Currency.USD));
 
             Console.WriteLine($"m1.ToString(): {m1}");
-            Console.WriteLine($"m1.MoneyValue: {m1.MoneyValue}");
+            Console.WriteLine($"m1.Amount: {m1.Amount}");
             Console.WriteLine($"m1.Currency: {m1.Currency}");
 
             var m2 = new Money(120M, Currency.USD);
@@ -265,7 +261,7 @@ namespace EqualityOrderComparisonMoney
 
             Console.WriteLine("-----------");
 
-            var moneyCollection3 = moneyCollection2.Where(m => m.MoneyValue == 130.72M);
+            var moneyCollection3 = moneyCollection2.Where(m => m.Amount == 130.72M);
 
             foreach (var money in moneyCollection3)
             {
@@ -276,7 +272,7 @@ namespace EqualityOrderComparisonMoney
             
             bankAccount.Deposit(new Money(200M, Currency.EUR));
 
-            Console.WriteLine($"Bank Account Balance:{bankAccount.Balance.MoneyValue}");
+            Console.WriteLine($"Bank Account Balance:{bankAccount.Balance.Amount}");
             Console.WriteLine($"Bank Account Balance:{bankAccount.Balance.ToString(MoneyFormattingType.MoneyValueCurrencyCode)}");
 
             Notification note = bankAccount.Withdraw(new Money(600M, Currency.EUR));

@@ -59,7 +59,7 @@ namespace EqualityOrderComparisonMoney
             if (AccountType != AccountType.CreditAccount && Balance < money)
             {
                 note.AddError(
-                    $"The Balance value: {Balance.MoneyValue} is less than withdrawal amount: {money.MoneyValue}");
+                    $"The Balance value: {Balance.Amount} is less than withdrawal amount: {money.Amount}");
             }
         }
     }

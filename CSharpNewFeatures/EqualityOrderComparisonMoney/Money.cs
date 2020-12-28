@@ -1,37 +1,47 @@
 using System;
+using System.Numerics;
 using System.Text;
 
 namespace EqualityOrderComparisonMoney
 {
     public readonly struct Money : IEquatable<Money>, IComparable<Money>, IComparable
     {
-        public Money(decimal moneyValue, Currency currency)
+        private readonly BigInteger _amount;
+
+        public Money(decimal amount, Currency currency)
         {
-            if (moneyValue < 0M)
+            if (amount < 0M)
             {
                 throw new ArgumentOutOfRangeException(
-                    nameof(moneyValue), moneyValue, "MoneyValue should be equal or greater than zero");
+                    nameof(amount), amount, "Amount should be equal or greater than zero");
             }
-            
-            MoneyValue = moneyValue;
+
+            int centFactor = Cents[currency.DefaultFractionDigits];
+            _amount = (BigInteger) (amount * centFactor);
             Currency = currency;
         }
-        
-        public Money(decimal moneyValue, string currencyCode)
+
+        public Money(decimal amount, string currencyCode)
         {
-            if (moneyValue < 0M)
+            if (amount < 0M)
             {
                 throw new ArgumentOutOfRangeException(
-                    nameof(moneyValue), moneyValue, "MoneyValue should be equal or greater than zero");
+                    nameof(amount), amount, "Amount should be equal or greater than zero");
             }
-            
-            MoneyValue = moneyValue;
-            Currency = new Currency(currencyCode);
+
+            var currency = new Currency(currencyCode);
+            int centFactor = Cents[currency.DefaultFractionDigits];
+            _amount = (BigInteger) (amount * centFactor);
+            Currency = currency;
         }
 
-        public decimal MoneyValue { get; init; }
+        private static int[] Cents => new[] {1, 10, 100, 1000};
 
-        public Currency Currency { get; init; }
+        private int CentFactor => Cents[Currency.DefaultFractionDigits];
+
+        public decimal Amount => (decimal)_amount / CentFactor;
+
+    public Currency Currency { get; init; }
         
         public override string ToString()
         {
@@ -47,9 +57,9 @@ namespace EqualityOrderComparisonMoney
 
         private void PrintMembers(StringBuilder builder)
         {
-            builder.Append(nameof(MoneyValue));
+            builder.Append(nameof(Amount));
             builder.Append(" = ");
-            builder.Append(MoneyValue.ToString("F"));
+            builder.Append(Amount.ToString("F"));
 
             builder.Append(", ");
 
@@ -62,8 +72,8 @@ namespace EqualityOrderComparisonMoney
         {
             var moneyString = formattingType switch
             {
-                MoneyFormattingType.MoneyValueCurrencyCode => $"{MoneyValue} {Currency.Code}",
-                MoneyFormattingType.CurrencyCodeMoneyValue => $"{Currency.Code} {MoneyValue}",
+                MoneyFormattingType.MoneyValueCurrencyCode => $"{Amount} {Currency.Code}",
+                MoneyFormattingType.CurrencyCodeMoneyValue => $"{Currency.Code} {Amount}",
                 _ => string.Empty
             };
 
@@ -71,7 +81,7 @@ namespace EqualityOrderComparisonMoney
         }
 
         public bool Equals(Money other)
-            => Currency == other.Currency && MoneyValue == other.MoneyValue;
+            => Currency == other.Currency && Amount == other.Amount;
 
         public override bool Equals(object other)
         {
@@ -80,7 +90,7 @@ namespace EqualityOrderComparisonMoney
         }
 
         public override int GetHashCode()
-            => HashCode.Combine(MoneyValue, Currency);
+            => HashCode.Combine(Amount, Currency);
 
         public int CompareTo(Money other)
         {
@@ -89,7 +99,7 @@ namespace EqualityOrderComparisonMoney
                 throw new InvalidOperationException("Cannot compare money of different currencies");
             }
 
-            return Equals(other) ? 0 : MoneyValue.CompareTo(other.MoneyValue);
+            return Equals(other) ? 0 : Amount.CompareTo(other.Amount);
         }
 
         public int CompareTo(object other)
@@ -118,16 +128,16 @@ namespace EqualityOrderComparisonMoney
             => m1.HasValue && m2.HasValue ? !m1.Equals(m2) : m1.HasValue ^ m2.HasValue;
         
         public static bool operator ==(Money? m1, decimal m2Value)
-            => m1?.MoneyValue.Equals(m2Value) ?? false;
+            => m1?.Amount.Equals(m2Value) ?? false;
         
         public static bool operator !=(Money? m1, decimal m2Value)
-            => !m1?.MoneyValue.Equals(m2Value) ?? false;
+            => !m1?.Amount.Equals(m2Value) ?? false;
         
         public static bool operator ==(decimal m1Value, Money? m2)
-            => m2?.MoneyValue.Equals(m1Value) ?? false;
+            => m2?.Amount.Equals(m1Value) ?? false;
         
         public static bool operator !=(decimal m1Value, Money? m2)
-            => !m2?.MoneyValue.Equals(m1Value) ?? false;
+            => !m2?.Amount.Equals(m1Value) ?? false;
 
         public static bool operator <(Money m1, Money m2)
             => m1.CompareTo(m2) < 0;
@@ -136,16 +146,16 @@ namespace EqualityOrderComparisonMoney
             => m1.CompareTo(m2) > 0;
         
         public static bool operator <(Money m1, decimal m2Value)
-            => m1.MoneyValue.CompareTo(m2Value) < 0;
+            => m1.Amount.CompareTo(m2Value) < 0;
         
         public static bool operator >(Money m1, decimal m2Value)
-            => m1.MoneyValue.CompareTo(m2Value) > 0;
+            => m1.Amount.CompareTo(m2Value) > 0;
         
         public static bool operator <(decimal m1Value, Money m2)
-            => m1Value.CompareTo(m2.MoneyValue) < 0;
+            => m1Value.CompareTo(m2.Amount) < 0;
         
         public static bool operator >(decimal m1Value, Money m2)
-            => m1Value.CompareTo(m2.MoneyValue) > 0;
+            => m1Value.CompareTo(m2.Amount) > 0;
 
         public static bool operator <=(Money m1, Money m2)
             => m1 == m2 || m1 < m2;
@@ -154,16 +164,16 @@ namespace EqualityOrderComparisonMoney
             => m1 == m2 || m1 > m2;
         
         public static bool operator <=(Money m1, decimal m2Value)
-            => m1.MoneyValue == m2Value || m1.MoneyValue < m2Value;
+            => m1.Amount == m2Value || m1.Amount < m2Value;
         
         public static bool operator >=(Money m1, decimal m2Value)
-            => m1.MoneyValue == m2Value || m1.MoneyValue > m2Value;
+            => m1.Amount == m2Value || m1.Amount > m2Value;
         
         public static bool operator <=(decimal m1Value, Money m2)
-            => m1Value == m2.MoneyValue || m1Value < m2.MoneyValue;
+            => m1Value == m2.Amount || m1Value < m2.Amount;
         
         public static bool operator >=(decimal m1Value, Money m2)
-            => m1Value == m2.MoneyValue || m1Value > m2.MoneyValue;
+            => m1Value == m2.Amount || m1Value > m2.Amount;
 
         public static Money operator +(Money m1, Money m2)
         {
@@ -172,14 +182,14 @@ namespace EqualityOrderComparisonMoney
                 throw new InvalidOperationException("Cannot add money having different currencies");
             }
 
-            return new Money(m1.MoneyValue + m2.MoneyValue, m1.Currency);
+            return new Money(m1.Amount + m2.Amount, m1.Currency);
         }
 
         public static Money operator +(Money m1, decimal m2Value) 
-            => new(m1.MoneyValue + m2Value, m1.Currency);
+            => new(m1.Amount + m2Value, m1.Currency);
 
         public static Money operator +(decimal m1Value, Money m2) 
-            => new(m1Value + m2.MoneyValue, m2.Currency);
+            => new(m1Value + m2.Amount, m2.Currency);
 
         public static Money operator -(Money m1, Money m2)
         {
@@ -188,14 +198,14 @@ namespace EqualityOrderComparisonMoney
                 throw new InvalidOperationException("Cannot subtract money having different currencies");
             }
 
-            return new Money(m1.MoneyValue - m2.MoneyValue, m1.Currency);
+            return new Money(m1.Amount - m2.Amount, m1.Currency);
         }
 
         public static Money operator -(Money m1, decimal m2Value)
-            => new(m1.MoneyValue - m2Value, m1.Currency);
+            => new(m1.Amount - m2Value, m1.Currency);
 
         public static Money operator -(decimal m1Value, Money m2)
-            => new(m1Value - m2.MoneyValue, m2.Currency);
+            => new(m1Value - m2.Amount, m2.Currency);
 
         public static Money operator *(Money m1, Money m2)
         {
@@ -204,14 +214,14 @@ namespace EqualityOrderComparisonMoney
                 throw new InvalidOperationException("Cannot multiply money having different currencies");
             }
 
-            return new Money(m1.MoneyValue * m2.MoneyValue, m1.Currency);
+            return new Money(m1.Amount * m2.Amount, m1.Currency);
         }
 
         public static Money operator *(Money m1, decimal m2Value)
-            => new(m1.MoneyValue * m2Value, m1.Currency);
+            => new(m1.Amount * m2Value, m1.Currency);
 
         public static Money operator *(decimal m1Value, Money m2)
-            => new(m1Value * m2.MoneyValue, m2.Currency);
+            => new(m1Value * m2.Amount, m2.Currency);
 
         public static Money operator /(Money m1, Money m2)
         {
@@ -220,30 +230,30 @@ namespace EqualityOrderComparisonMoney
                 throw new InvalidOperationException("Cannot divide money having different currencies");
             }
 
-            return new Money(m1.MoneyValue / m2.MoneyValue, m1.Currency);
+            return new Money(m1.Amount / m2.Amount, m1.Currency);
         }
 
         public static Money operator /(Money m1, decimal m2Value)
-            => new(m1.MoneyValue / m2Value, m1.Currency);
+            => new(m1.Amount / m2Value, m1.Currency);
 
         public static Money operator /(decimal m1Value, Money m2)
-            => new(m1Value / m2.MoneyValue, m2.Currency);
+            => new(m1Value / m2.Amount, m2.Currency);
 
         public static Money operator %(Money m, int divisor)
-            => new(m.MoneyValue % divisor, m.Currency);
+            => new(m.Amount % divisor, m.Currency);
         
         public static Money operator +(Money m)
-            => new(m.MoneyValue, m.Currency);
+            => new(m.Amount, m.Currency);
         
         public static Money operator -(Money m)
-            => new(-m.MoneyValue, m.Currency);
+            => new(-m.Amount, m.Currency);
 
         public static Money operator ++(Money m)
-            => new(m.MoneyValue + 1M, m.Currency);
+            => new(m.Amount + 1M, m.Currency);
 
         public static Money operator --(Money m)
-            => new(m.MoneyValue - 1M, m.Currency);
+            => new(m.Amount - 1M, m.Currency);
 
-        public static explicit operator decimal(Money m) => m.MoneyValue;
+        public static explicit operator decimal(Money m) => m.Amount;
     }
 }
